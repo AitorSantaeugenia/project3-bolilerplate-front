@@ -7,13 +7,19 @@ const addNewTaskService = (newTask) => {
 	return service.post(`${URL}/`, newTask);
 };
 
-//get all tasks
-const getAllTasksService = () => {
-	return service.get(`${URL}/`);
+// //get all tasks - Check1
+// const getAllTasksService = (id) => {
+// 	return service.get(`${URL}/${id}`);
+// };
+
+//delete task - Check2
+const deleteTaskService = (id) => {
+	return service.delete(`${URL}/${id}`);
 };
 
-const getTasksDetailsService = (id) => {
-	return service.get(`${URL}/${id}`);
+//update task - Check3
+const updateTaskService = (id, updatedTask) => {
+	return service.put(`${URL}/${id}`, updatedTask);
 };
 
-export { getAllTasksService, addNewTaskService };
+export { addNewTaskService, deleteTaskService, updateTaskService };
