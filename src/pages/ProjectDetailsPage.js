@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+// import axios from "axios";
+import {getProjectDetailsService} from "../services/project.services";
+
+import { Link, useParams } from "react-router-dom";
 import AddTask from "../components/AddTask";
 
 import TaskCard from "../components/TaskCard";
@@ -10,25 +12,36 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 function ProjectDetailsPage (props) {
   const [project, setProject] = useState(null);
-  const projectId = props.match.params.id;
+  const { id } = useParams();
+  //const projectId = props.match.params.id;
+ const projectId = id;
   
   
-  const getProject = () => {
+  const getProject = async () => {
+    //console.log(id)
     // Get the token from the localStorage
+    //const storedToken = localStorage.getItem('authToken');
     const storedToken = localStorage.getItem('authToken');
+    try{
+      const response = await getProjectDetailsService(id)
+      setProject(response.data)
+    }catch(err){
+      console.log(err)
+    }
 
     // Send the token through the request "Authorization" Headers
-    axios
-      .get(
-        `${API_URL}/projects/${projectId}`,
-        { headers: { Authorization: `Bearer ${storedToken}` } }
-      )
-      .then((response) => {
-        const oneProject = response.data;
-        console.log(oneProject)
-        setProject(oneProject);
-      })
-      .catch((error) => console.log(error));
+    
+    // axios
+    //   .get(
+    //     `${API_URL}/projects/${projectId}`,
+    //     { headers: { Authorization: `Bearer ${storedToken}` } }
+    //   )
+    //   .then((response) => {
+    //     const oneProject = response.data;
+    //     console.log(oneProject)
+    //     setProject(oneProject);
+    //   })
+    //   .catch((error) => console.log(error));
   };
   
   
@@ -38,7 +51,9 @@ function ProjectDetailsPage (props) {
 
   
   return (
+    
     <div className="ProjectDetails">
+      
       {project && (
         <>
           <h1>{project.title}</h1>
@@ -50,10 +65,9 @@ function ProjectDetailsPage (props) {
       <AddTask refreshProject={getProject} projectId={projectId} />          
         
       { project && project.tasks.map((task) => {
-        console.log(task)
         return(
 
-          <TaskCard key={task._id} {...task} />  
+          <TaskCard  key={task._id} {...task} />  
         )
     
       })}
