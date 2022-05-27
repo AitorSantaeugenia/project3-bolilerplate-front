@@ -1,9 +1,7 @@
 import { useState } from 'react';
-/* import axios from 'axios'; */
 import Spinner from 'react-bootstrap/Spinner';
 import { addNewTaskService } from '../services/tasks.services';
 
-const API_URL = process.env.REACT_APP_API_URL;
 
 function AddTask(props) {
 	const [ title, setTitle ] = useState('');
@@ -18,8 +16,6 @@ function AddTask(props) {
 		// Create an object representing the body of the POST request
 		const requestBody = { title, description, projectId };
 
-		// Get the token from the localStorage
-		//const storedToken = localStorage.getItem('authToken');
 		setIsLoading(true);
 		try {
 			await addNewTaskService(requestBody);
@@ -27,24 +23,10 @@ function AddTask(props) {
 			setTitle('');
 			setDescription('');
 			setIsLoading(false);
-			//console.log('tarea añadida', props);
+			props.refreshProject();
 		} catch (err) {
 			console.log(err);
 		}
-
-		/* // Send the token through the request "Authorization" Headers
-		axios
-			.post(`${API_URL}/tasks`, requestBody, { headers: { Authorization: `Bearer ${storedToken}` } })
-			.then((response) => {
-				// Reset the state to clear the inputs
-				setTitle('');
-				setDescription('');
-				setIsLoading(false);
-				// Invoke the callback function coming through the props
-				// from the ProjectDetailsPage, to refresh the project details
-				props.refreshProject();
-			})
-			.catch((error) => console.log(error)); */
 	};
 
 	return (

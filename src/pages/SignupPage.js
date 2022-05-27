@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
-// import axios from "axios";
 import { signupService } from '../services/auth.services';
 
-const API_URL = process.env.REACT_APP_API_URL;
 
 function SignupPage(props) {
 	const [ email, setEmail ] = useState('');
@@ -30,18 +28,6 @@ function SignupPage(props) {
       }
     }
   };
-		// Make an axios request to the API
-		// If POST request is successful redirect to login page
-		// If the request resolves with an error, set the error message in the state
-		// axios
-		// 	.post(`${API_URL}/auth/signup`, requestBody)
-		// 	.then((response) => props.history.push('/login'))
-		// 	.catch((error) => {
-		// 		const errorDescription = error.response.data.message;
-		// 		setErrorMessage(errorDescription);
-        
-		// 	});
-	// };
 
 	return (
 		<div className="SignupPage">

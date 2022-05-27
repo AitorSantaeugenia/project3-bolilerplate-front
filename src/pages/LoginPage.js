@@ -4,8 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from './../context/auth.context';
 import { loginService } from '../services/auth.services';
 
-//const API_URL = process.env.REACT_APP_API_URL;
-
 function LoginPage(props) {
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
@@ -18,7 +16,6 @@ function LoginPage(props) {
 
 	const handleLoginSubmit = async (e) => {
 		e.preventDefault();
-		// debugger;
 		const requestBody = { email, password };
 
 		try {
@@ -27,25 +24,10 @@ function LoginPage(props) {
 			const token = response.data.authToken;
 			logInUser(token);
 			navigate('/');
-			//props.history.push('/');
 		} catch (err) {
 			const errorDescription = err?.response?.data?.message;
 			setErrorMessage(errorDescription);
 		}
-
-		/* axios
-			.post(`${API_URL}/auth/login`, requestBody)
-			.then((response) => {
-				console.log('JWT token', response.data.authToken);
-
-				const token = response.data.authToken;
-				logInUser(token);
-				props.history.push('/');
-			})
-			.catch((error) => {
-				const errorDescription = error.response.data.message;
-				setErrorMessage(errorDescription);
-			}); */
 	};
 
 	return (

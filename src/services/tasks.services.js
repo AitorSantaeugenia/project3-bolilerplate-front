@@ -7,17 +7,12 @@ const addNewTaskService = (newTask) => {
 	return service.post(`${URL}/`, newTask);
 };
 
-// //get all tasks - Check1
-// const getAllTasksService = (id) => {
-// 	return service.get(`${URL}/${id}`);
-// };
-
-//delete task - Check2
+//delete task
 const deleteTaskService = (id) => {
 	return service.delete(`${URL}/${id}`);
 };
 
-//update task - Check3
+//update task
 const updateTaskService = (id, updatedTask) => {
 	return service.put(`${URL}/${id}`, updatedTask);
 };
