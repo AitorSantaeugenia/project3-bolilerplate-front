@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { addNewProjectService } from '../services/project.services.js';
 
+//hola he agregado cosa nueva
+
 function AddProject(props) {
 	const [ title, setTitle ] = useState('');
 	const [ description, setDescription ] = useState('');
